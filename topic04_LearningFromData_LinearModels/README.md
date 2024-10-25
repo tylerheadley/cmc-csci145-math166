@@ -32,3 +32,21 @@
     1. The midterm will cover: Chapter 1, Chapter 2 (sections 2.1-2.2 only), Chapter 3 (Section 3.4 only)
     1. `notes-linear.pdf` and `future/notes-optimization.pdf` will not be on the midterm exam
     1. only `notes-features.pdf` from this section will be on the exam
+
+**Wed 23 Oct:**
+
+1. Homework posted in the `project` folder.
+
+    **Due:** Sunday 3 Nov @ midnight
+
+    You should:
+
+    1. Run all the cells in the notebook.
+        (This could take 10-30 minutes.)
+
+    1. There are a handful of questions in different sections of the notebook.
+        Read through the notebook and answer the questions by modifying the notebook directly.
+
+    1. Create a new github repo with your modified notebook.
+        Upload the repo to sakai.
+
