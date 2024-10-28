@@ -50,3 +50,28 @@
     1. Create a new github repo with your modified notebook.
         Upload the repo to sakai.
 
+**Mon 28 Oct:**
+
+1. Midterm signups: <https://docs.google.com/spreadsheets/d/1lPi2uOZ1ALGcBat3xrHjIrtxpNHLdWGe3mZUAHpffDk/edit?usp=sharing>
+1. Classes for next semester:
+
+    1. I will be teaching CSCI143 - Big Data
+
+        1. required for DS major
+        1. counts for CS major / CS sequence / DS sequence
+        1. no math, only coding :)
+        1. covers "how to build instagram"
+            1. parallel processing on remote servers
+            1. map reduce
+            1. shell scripting (POSIX/bash)
+            1. git
+            1. docker
+            1. postgres/sqlite SQL databases
+            1. query terabytes of data in milliseconds
+        1. most students find it easier and more fun than data mining
+
+    1. Math Tea
+        1. October 31 at 3:30-4:30pm
+        1. Athenaeum courtyard
+        1. math faculty available to ask questions about courses
+        1. math club providing snacks

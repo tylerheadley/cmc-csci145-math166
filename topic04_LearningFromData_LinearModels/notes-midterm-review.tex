@@ -1,0 +1,217 @@
+\documentclass[10pt]{exam}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{stmaryrd}
+
+\usepackage{booktabs}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+\usepackage{color}
+\usepackage{colortbl}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{gray}{rgb}{0.7,0.7,0.7}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = black, %Colour for external hyperlinks
+  linkcolor    = blue, %Colour of internal links
+  citecolor    = blue  %Colour of citations
+}
+
+\usepackage{listings}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+\newtheorem{note}{Note}
+\newtheorem{example}{Example}
+\newtheorem{defn}{Definition}
+\newtheorem{fact}{Fact}
+\newtheorem{refr}{References}
+\newtheorem{theorem}{Theorem}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\DeclareMathOperator{\nnz}{nnz}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\determinant}{det}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\prob}{\mathbb P}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\Ein}{E_{\text{in}}}
+\newcommand{\Eout}{E_{\text{out}}}
+\newcommand{\Etest}{E_{\text{test}}}
+\newcommand{\I}{\mathbf I}
+\newcommand{\Q}{\mathbf Q}
+\newcommand{\p}{\mathbf P}
+\newcommand{\pb}{\bar {\p}}
+\newcommand{\pbb}{\bar {\pb}}
+\newcommand{\pr}{\bm \pi}
+
+\newcommand{\trans}[1]{{#1}^{T}}
+\newcommand{\loss}{\ell}
+\newcommand{\w}{\mathbf w}
+\newcommand{\wstar}{{\w}^{*}}
+\newcommand{\x}{\mathbf x}
+\newcommand{\y}{\mathbf y}
+\newcommand{\lone}[1]{{\lVert {#1} \rVert}_1}
+\newcommand{\ltwo}[1]{{\lVert {#1} \rVert}_2}
+\newcommand{\lp}[1]{{\lVert {#1} \rVert}_p}
+\newcommand{\linf}[1]{{\lVert {#1} \rVert}_\infty}
+\newcommand{\lF}[1]{{\lVert {#1} \rVert}_F}
+
+\newcommand{\mH}{m_{\mathcal H}}
+\newcommand{\dvc}{{d_{\text{VC}}}}
+\newcommand{\HH}[1]{\mathcal H_{\text{#1}}}
+\newcommand{\Hbinary}{\HH_{\text{binary}}}
+\newcommand{\Haxis}{\HH_{\text{axis}}}
+\newcommand{\Hperceptron}{\HH_{\text{perceptron}}}
+
+
+\newcommand{\ignore}[1]{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\begin{center}
+{
+\Huge
+Notes: Midterm 2 Review
+}
+\end{center}
+
+\begin{note}
+Recall that your midterm will be worth 64 points.
+It will cover only the \emph{statistical} concepts we have learned so far,
+not the \emph{computational}.
+In particular, I will not ask you about:
+\begin{enumerate}
+    \item PLA,
+    \item TEA,
+    \item loss functions (e.g. convex/surrogate/robust), or
+    \item optimization (e.g. gradient descent/stochastic gradient descent).
+\end{enumerate}
+Your grading will be divided into 4 parts, each worth 16 points:
+\begin{enumerate}
+    \item Response to initial question.
+    \item Knowledge of Chapter 1 (everything except PLA, including the between chapter 1-2 notes packet).
+    \item Knowledge of Chapter 2 (sections 2.1 and 2.2).
+    \item Knowledge of Chapter 3 (section 3.4 only).
+\end{enumerate}
+\end{note}
+
+
+\newpage
+\noindent
+Your initial question will have the following form.
+(Essentially every technical machine learning interview will have a question like this.
+Also, every real world machine learning project has to answer this type of question multiple times.)
+
+\begin{problem}
+At ACME corps, we have deployed a perceptron model with the polynomial feature map of degree 4.
+Our training dataset size is $N=10^4$ and $d=10^2$.
+We have measured our in sample error as 0.13 and our test set error is 0.42.
+What should we do to improve our performance?
+\end{problem}
+
+
+\noindent
+Your answer should:
+\begin{enumerate}
+    \item Be less than 5 minutes in total.  (1-2 minutes is ideal.)
+    \item First state whether you are overfitting the data or underfitting the data.
+
+        \vspace{2in}
+    \item Draw the model complexity curve.
+
+        \vspace{3.5in}
+
+    \item Use the curve to explain how to correct the over/underfitting problem.
+        \begin{enumerate}
+            \item Suggest explanations about why the model is over/underfitting.
+            \item Suggest concrete changes to either the hypothesis class or feature maps.
+            \item Explicitly state how this affects the VC dimension.
+            \item Explicitly state how the VC dimension relates to the model complexity curve.
+                (That is, why is the change from the previous part good?)
+        \end{enumerate}
+\end{enumerate}
+
+\newpage
+\begin{note}
+    Follow up questions will assess your knowledge on each of the chapters.
+    I will (try to) not ask a question directly from the notes packet,
+    and instead ask questions related to what you talk about in your initial answer.
+
+    Expect to:
+    \begin{enumerate}
+        \item Talk about each of the definitions from the definitions quizzes.
+            You should be able to define all of these terms and talk about why they are important in context.
+
+        \item Walk through the steps for calculating the VC dimension of a hypothesis class.
+    \end{enumerate}
+\end{note}
+
+\newpage
+\noindent
+Here are more example initial questions.
+Any possible combination of hypothesis classes, feature maps, dataset size, and in/out of sample errors is fair game.
+
+\begin{problem}
+At ACME corps, we have deployed a decision stump model with the random feature map of output degree 10.
+Our training dataset size is $N=10^5$ and dimensions is $d=10^2$.
+We have measured our in sample error as 0.14 and our test error is also 0.14.
+What should we do to improve our performance?
+\end{problem}
+
+\begin{problem}
+At ACME corps, we have deployed the concentric circles model.
+We first center out data points and then apply the polynomial feature map with degree 20.
+Our training dataset size is $N=10^2$ and dimensions is $d=10^2$.
+We have measured our in sample error as 0.30 and our test error is 0.31.
+What should we do to improve our performance?
+\end{problem}
+
+\begin{problem}
+At ACME corps, we have deployed the $\HH{axis2}$ model with the PCA feature map after centering and rescaling the data.
+Our training dataset size is $N=10^2$ and dimensions is $d=10^6$.
+We have measured our in sample error as 0.05 and our test error is 0.06.
+What should we do to improve our performance?
+\end{problem}
+
+\begin{problem}
+At ACME corps, we have deployed the perceptron model with two feature maps: First we apply the polynomial feature map of degree 7, then we apply PCA with output dimension 5.
+Our training dataset size is $N=10^5$ and dimensions is $d=10^2$.
+We have measured our in sample error as 0.25 and our test error is 0.24.
+What should we do to improve our performance?
+\end{problem}
+
+\begin{problem}
+At ACME corps, we have deployed the model of convex sets in two dimensions.  We use PCA to reduce the dimensions down to 2 and then rescale and center our data.
+Our training dataset size is $N=10^8$ and dimensions is $d=10^1$.
+We have measured our in sample error as 0.15 and our test error is 0.42.
+What should we do to improve our performance?
+\end{problem}
+
+
+\begin{note}
+    \textbf{Practicing these problems with another student will count for the midterm1 extra credit.}
+\end{note}
+
+\end{document}
+
+
+
