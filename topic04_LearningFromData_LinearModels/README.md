@@ -53,6 +53,9 @@
 **Mon 28 Oct:**
 
 1. Midterm signups: <https://docs.google.com/spreadsheets/d/1lPi2uOZ1ALGcBat3xrHjIrtxpNHLdWGe3mZUAHpffDk/edit?usp=sharing>
+1. I will convert Friday office hours into a dedicated review session if:
+    1. Someone posts a github issue requesting this
+    1. At least 4 other students reply that they will attend
 1. Classes for next semester:
 
     1. I will be teaching CSCI143 - Big Data
