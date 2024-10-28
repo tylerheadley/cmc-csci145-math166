@@ -90,13 +90,64 @@
 \begin{center}
 {
 \Huge
-Notes: L\'eon Bottou's SGD Paper
+Notes: Optimization
 }
 \end{center}
 
-You are responsible for Sections 1-3 of Bottou's paper \emph{Large-Scale Machine Learning with Stochastic Gradient Descent}.
+\begin{note}
+\emph{Optimization} is the computational process of selecting a particular hypothesis from a hypothesis class.
+In the context of machine learning, an \emph{optimizer} and an \emph{algorithm} are synonyms.
+Thus, the TEA algorithm could also be called the TEA optimizer.
 
-\section*{Section 3.2, specialized for the logistic loss}
+The textbook's discussion on optimization is relatively weak compared to its discussion on statistics.
+We will use L\'eon Bottou's paper ``Large-Scale Machine Learning with Stochastic Gradient Descent'' to supplement.
+\end{note}
+
+\subsection*{Section 3.3.1: Predicting a Probability}
+
+\begin{note}
+    This section derives the logistic loss as a ``probabilistic generalization'' of the 0-1 loss.
+    You are not responsible for this derivation in this class.
+    It is, however, a common machine learning interview question.
+\end{note}
+
+\newpage
+%\vspace{2in}
+\subsection*{Section 3.3.2: Gradient Descent}
+
+\begin{note}
+The goal of our discussion will be to provide better detail for the unnumbered figures in this section.
+\end{note}
+
+\begin{problem}
+Why it is important to have a convex loss function?
+\end{problem}
+\newpage
+\begin{problem}
+Visualize gradient descent and stochastic gradient descent.
+\end{problem}
+\newpage
+\begin{problem}
+Visualize the optimization error.
+\end{problem}
+
+\newpage
+\section*{L\'eon Bottou's SGD Paper}
+
+\begin{note}
+You are responsible for Sections 1-3 of Bottou's paper \emph{Large-Scale Machine Learning with Stochastic Gradient Descent}.
+It is important to be able to translate the notation between this paper and the textbook.
+\end{note}
+
+%\subsection*{Section 2: Learning with gradient descent}
+%\subsection*{Section 3.1: Tradeoffs in large scale learning}
+%\begin{problem}
+    %Define the approximation error, estimation error, and optimization error.
+    %Draw figures to visualizes these errors.
+%\end{problem}
+
+%\newpage
+\subsection*{Section 3.2, specialized for the logistic loss}
 
 Recall that in logistic regression, we use the logistic loss
 \begin{equation}
@@ -117,6 +168,7 @@ where $z = \hat y y = \trans \x \w y$.
         \vspace{3in}
 \end{enumerate}
 
+\newpage
 \noindent
 Table 2 from the paper is reproduced below.
 Recall that all stated values are implicitly in big-O notation,
@@ -139,13 +191,13 @@ Use the information from the previous page to make the run times below more prec
 \end{center}
 
 \ignore{
-\section*{Section 2.1, 2.2}
+\subsection*{Section 2.1, 2.2}
 %\begin{problem}
     Reproduce the update formulas for \emph{gradient descent} (GD) and \emph{stochastic gradient descent} (SGD) below.
     This is Equations (2-5) in the reference.
 %\end{problem}
 
-\section*{Section 3.1}
+\subsection*{Section 3.1}
 
 Equation (6) states that the excess error $\mathcal E = E(\tilde f_n) - E(f^*)$ can be decomposed in three terms:
 \begin{align*}
@@ -155,7 +207,7 @@ Equation (6) states that the excess error $\mathcal E = E(\tilde f_n) - E(f^*)$ 
       + \bigg(E(\tilde f_n) - E(f_n)\bigg)
 \end{align*}
 
-\section*{Section 3.2}
+\subsection*{Section 3.2}
 }
 
 \newpage
