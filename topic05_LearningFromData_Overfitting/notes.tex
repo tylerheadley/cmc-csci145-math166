@@ -98,8 +98,11 @@ Chapter 4: Overfitting
 \end{center}
 
 \section*{Section 4.1: When does overfitting occur?}
+\begin{note}
+    We've already covered everything from this section.
+\end{note}
 
-\newpage
+%\newpage
 \section*{Section 4.2: Regularization}
 
 %Recall that in ERM our goal is to compute
@@ -125,27 +128,34 @@ where $\Omega : \mathcal H \to \R$ is a \emph{regularization function} that pena
     and $C : \R$ is a hyperparameter that determines how complex a function is allowed to be.
 \end{defn}
 
+\vspace{5in}
 \begin{example}
     The \emph{L1 regularizer} is defined to be
-    \begin{equation}
+    %\begin{equation}
+    $
         \Omega(\w) = \lone{\w}
+    $
         .
-    \end{equation}
+    %\end{equation}
 \end{example}
 
 \begin{example}
     The \emph{L2 regularizer} is defined to be
-    \begin{equation}
+    %\begin{equation}
+    $
         \Omega(\w) = \ltwo{\w}^2
+        $
         .
-    \end{equation}
+    %\end{equation}
 \end{example}
 
 \begin{example}
     The \emph{elastic net} is defined to be
-    \begin{equation}
+    %\begin{equation}
+    $
         \Omega(\w) = \alpha \ltwo{\w}^2 + (1-\alpha) \lone{\w}
-    \end{equation}
+        $
+    %\end{equation}
     where $\alpha \in [0,1]$.
 \end{example}
 
@@ -176,7 +186,18 @@ Define the \emph{augmented error} to be
     and $g\approx f$.
 \end{fact}
 
-\vspace{1in}
+\newpage
+\vspace{0.2in}
+\begin{fact}
+    Consider the hypothesis class of $k$-sparse halfspaces
+    \begin{equation}
+        \mathcal{H}_k = \bigg\{ \x \mapsto \sign(\trans\w\x) ~:~ \w\in\R^d,~\nnz(\w)=k \bigg\}
+        .
+    \end{equation}
+    The VC-dimension of $\mathcal{H}_k$ is $\Theta(k\log (d))$.
+    This hypothesis class cannot be optimized directly using any of the gradient descent algorithms because it is non-convex.
+\end{fact}
+\vspace{3in}
 \noindent
 \renewcommand\arraystretch{5}
 \hspace{-0.5in}
@@ -191,17 +212,6 @@ Define the \emph{augmented error} to be
     Elastic Net \\
     \bottomrule
 \end{tabular}
-
-\vspace{0.2in}
-\begin{fact}
-    Consider the hypothesis class of $k$-sparse halfspaces
-    \begin{equation}
-        \mathcal{H}_k = \bigg\{ \x \mapsto \sign(\trans\w\x) ~:~ \w\in\R^d,~\nnz(\w)=k \bigg\}
-        .
-    \end{equation}
-    The VC-dimension of $\mathcal{H}_k$ is $\Theta(k\log (d/k))$.
-    This hypothesis class cannot be optimized directly using any of the gradient descent algorithms because it is non-convex.
-\end{fact}
 
 \newpage
 \begin{problem}
@@ -253,7 +263,7 @@ Define the \emph{augmented error} to be
 
 \newpage
 \begin{problem}
-    In this problem you will derive a closed for solution to the ridge regression problem,
+    In this problem you will derive a closed form solution to the ridge regression problem,
     which is closely related to the OLS regression problem.
 Recall that OLS uses the linear hypothesis class
 \begin{equation}
@@ -290,12 +300,12 @@ and so ``lazy'' interviewers will ask this to get a sense of your math abilities
 \end{problem}
 
 
-\newpage
-\begin{problem}[optional]
-Problems 4.8 and 4.17 in the textbook provide useful insights that commonly show up in technical interviews.
-These problems are ``optional'' in the sense that they will not show up on your midterm exam,
-but I still strongly recommend you at least look at them.
-\end{problem}
+%\newpage
+%\begin{problem}[optional]
+%Problems 4.8 and 4.17 in the textbook provide useful insights that commonly show up in technical interviews.
+%These problems are ``optional'' in the sense that they will not show up on your midterm exam,
+%but I still strongly recommend you at least look at them.
+%\end{problem}
 
 %\begin{problem}
     %% FIXME
