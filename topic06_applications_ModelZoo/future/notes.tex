@@ -123,6 +123,17 @@ but it makes sense for us to have a large set of example models to think about b
 \newpage
 \subsection{Linear/Quadratic Models}
 
+Scikit learn implements the following linear models:
+
+\begin{code}
+sklearn.discriminant_analysis.LinearDiscriminantAnalysis()
+sklearn.linear_model.LogisticRegression()
+sklearn.linear_model.Perceptron()
+sklearn.linear_model.SGDClassifier()
+sklearn.linear_model.PassiveAggressiveClassifier()
+sklearn.svm.LinearSVC
+\end{code}
+
 %\begin{fact}
     Recall that a model refers to a hypothesis class and a training algorithm.
     All linear models use the hypothesis class of halfspaces, and all quadratic models use halfspaces with a 2nd degree polynomial kernel.

@@ -1,0 +1,382 @@
+\documentclass[10pt]{exam}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{stmaryrd}
+\usepackage{booktabs}
+
+\usepackage{color}
+\usepackage{colortbl}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{gray}{rgb}{0.7,0.7,0.7}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = black, %Colour for external hyperlinks
+  linkcolor    = blue, %Colour of internal links
+  citecolor    = blue  %Colour of citations
+}
+
+\usepackage{listings}
+\lstset{
+    basicstyle={\ttfamily}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{note}{Note}
+\newtheorem{defn}{Definition}
+\newtheorem{fact}{Fact}
+\newtheorem{refr}{References}
+\newtheorem{theorem}{Theorem}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\DeclareMathOperator{\nnz}{nnz}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\determinant}{det}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\prob}{\mathbb P}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\Ein}{E_{\text{in}}}
+\newcommand{\Eout}{E_{\text{out}}}
+\newcommand{\Etest}{E_{\text{test}}}
+\newcommand{\I}{\mathbf I}
+\newcommand{\Q}{\mathbf Q}
+\newcommand{\p}{\mathbf P}
+\newcommand{\pb}{\bar {\p}}
+\newcommand{\pbb}{\bar {\pb}}
+\newcommand{\pr}{\bm \pi}
+
+\newcommand{\trans}[1]{{#1}^{T}}
+\newcommand{\loss}{\ell}
+\newcommand{\w}{\mathbf w}
+\newcommand{\wstar}{{\w}^{*}}
+\newcommand{\x}{\mathbf x}
+\newcommand{\y}{\mathbf y}
+\newcommand{\lone}[1]{{\lVert {#1} \rVert}_1}
+\newcommand{\ltwo}[1]{{\lVert {#1} \rVert}_2}
+\newcommand{\lp}[1]{{\lVert {#1} \rVert}_p}
+\newcommand{\linf}[1]{{\lVert {#1} \rVert}_\infty}
+\newcommand{\lF}[1]{{\lVert {#1} \rVert}_F}
+
+\newcommand{\mH}{m_{\mathcal H}}
+\newcommand{\dvc}{{d_{\text{VC}}}}
+\newcommand{\HH}[1]{\mathcal H_{\text{#1}}}
+\newcommand{\Hbinary}{\HH_{\text{binary}}}
+\newcommand{\Haxis}{\HH_{\text{axis}}}
+\newcommand{\Hperceptron}{\HH_{\text{perceptron}}}
+
+
+\newcommand{\ignore}[1]{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\begin{center}
+{
+\Huge
+Model Zoo
+}
+\end{center}
+
+\section{Introduction}
+
+Scikit-learn implements many different classification models.
+The VC dimension gives us a generic tool for understanding the generalization performance of all of these models.
+These notes will give a high level overview of the most important variants of these models and their VC dimension.
+
+None of this information is in the textbook.
+Citations are provided for all the information,
+but you're not expected to look at the original sources.
+There are two goals for including this material:
+(1) so that you can use this material to determine which models to use in practice;
+(2) so that you get a sense of what the state of the art in machine learning theory is.
+
+There's one last section for us to cover in the textbook
+(4.3.2 model selection),
+but it makes sense for us to have a large set of example models to think about before covering this section.
+
+\section{Models}
+
+\begin{center}
+    \hspace*{-0.75in}\includegraphics[width=8in]{sphx_glr_plot_classifier_comparison_001}
+    \small
+    Source: \url{https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html}
+\end{center}
+
+\newpage
+\subsection{Linear/Quadratic Models}
+
+Recall that a model refers to a hypothesis class and a training algorithm.
+All linear models use the hypothesis class of halfspaces, and all quadratic models use halfspaces with a 2nd degree polynomial kernel.
+Scikit learn implements the following models.
+
+\begin{enumerate}
+    \item
+Linear classifiers:
+
+\begin{verbatim}
+sklearn.discriminant_analysis.LinearDiscriminantAnalysis
+sklearn.linear_model.LogisticRegression
+sklearn.linear_model.Perceptron
+sklearn.linear_model.SGDClassifier
+sklearn.linear_model.PassiveAggressiveClassifier
+sklearn.svm.LinearSVC
+\end{verbatim}
+
+\item
+Quadratic classifiers:
+
+\begin{verbatim}
+sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis
+sklearn.naive_bayes.GaussianNB
+\end{verbatim}
+\end{enumerate}
+
+%\begin{fact}
+
+    %The only difference between these models and logistic regression is the training algorithm.
+    %Models like \lstinline{sklearn.discriminant_analysis.LinearDiscriminantAnalysis} and \lstinline{class sklearn.naive_bayes.GaussianNB} make parametric assumptions on the underlying data and minimize $\Ein$ under those assumptions.
+    %Logistic regression and SVMs are able to minimize $\Ein$ without any assumptions, however, so they ``usually'' have better training error.
+%
+    %In practice, practitioners almost always use logistic regression or SVMs to optimize linear/quadratic hypothesis spaces because the training error is smaller and the generalization error is the same.
+\noindent
+The only difference between these models is the training algorithm.
+
+    \vspace{3in}
+\begin{note}
+    You should at this point understand most of the hyperparameters to 
+    \lstinline{sklearn.linear_model.LogisticRegression} and 
+    \lstinline{sklearn.linear_model.SGDClassifier}. 
+    In particular, you should understand the effects of
+    \begin{enumerate}
+        \item \lstinline{penalty}
+        \item \lstinline{tol}
+        \item \lstinline{C}
+        \item \lstinline{fit_intercept}
+        \item \lstinline{intercept_scaling}
+        \item \lstinline{max_iter}
+        \item \lstinline{l1_ratio}
+        \item \lstinline{loss} (SGD only)
+    \end{enumerate}
+        %\item class_weight=None, random_state=None, solver='lbfgs',
+            %multi_class='deprecated', verbose=0, warm_start=False, n_jobs=None, 
+\end{note}
+
+%\end{fact}
+
+    %\vspace{5in}
+%\begin{note}
+    %A common interview question is to explain the assumptions behind some of these ``bad'' models like naive bayes or linear discriminant analysis.
+    %I won't ask you to do that for this class.
+%\end{note}
+
+%\newpage
+%\begin{problem}
+    %A colleague is using quadratic discriminant analysis to solve a machine learning problem.
+    %Provide simple suggestions on how they could improve classification accuracy in the following situations.
+    %\begin{enumerate}
+        %\item
+            %They are overfitting.
+            %\vspace{4in}
+        %\item
+            %The training error $\Ein$ is large.
+    %\end{enumerate}
+%\end{problem}
+
+\newpage
+\begin{problem}
+    A colleague is using quadratic discriminant analysis to solve a machine learning problem.
+    Provide simple suggestions on how they could improve classification accuracy in the following situations.
+    \begin{enumerate}
+        \item
+            They are overfitting.
+            \vspace{4in}
+        \item
+            The training error $\Ein$ is large.
+    \end{enumerate}
+\end{problem}
+
+%\vspace{4in}
+%\begin{problem}
+    %What is the VC dimension of 
+%\end{problem}
+
+\newpage
+\subsection{Multi Layer Perceptron (MLP)}
+
+Recall that the class of halfspaces is
+\begin{equation}
+    \HH{} = \bigg\{ \x \mapsto \sign(\trans\w \x) : \w : \R^{d'} \bigg\}
+\end{equation}
+and it is common to adjust the VC-dimension of the problem by applying a feature map
+$\Phi : \R^d \to \R^{d'}$ to get the hypothesis class
+\begin{equation}
+    \HH{} = \bigg\{ \x \mapsto \sign(\trans\w \Phi(\x)) : \w : \R^{d'} \bigg\}
+    .
+\end{equation}
+In logistic regression, we fix the $\Phi$ function in advance and learn only the $\w$ vector.
+
+The idea of the MLP is to also learn the $\Phi$ function from the data.
+In a 1-layer MLP, we set
+\begin{equation}
+    \Phi(\x) = \sigma ( W_1 \x)
+\end{equation}
+where $W_1 : \R^{d'\times d}$,
+and $\sigma : \R \to \R$ is called the \emph{activation function} and is applied element-wise to $W_1\x$.
+The $W_1$ matrix is learned from the data (typically via stochastic gradient descent) at the same time as the $\w$ vector.
+In the $i$-layer perceptron, the $\Phi$ function is recursively defined to be
+\begin{equation}
+    \Phi^{(i)}(\x) =
+    \begin{cases}
+        \sigma (W_1 \x) & \text{if}~i = 1 \\
+        \sigma (W_i \Phi^{(i-1)}(\x)) & \text{otherwise}
+    \end{cases}
+\end{equation}
+where each matrix $W_i : \R^{d_i \times d_{i-1}}$ and $d_0 = d$ and $d_i = d'$.
+The value $i$ is called the \emph{depth} of the neural network or the \emph{number of layers} of the network, and the value of $d_i$ is called the width of the $i$th layer.
+
+\begin{note}
+    The MLP is a special case of a \emph{neural network}.
+    TensorFlow/PyTorch are libraries from Google/Facebook for implementing neural networks that give much more control than scikit-learn.
+%
+    TensorFlow has a good visualization of MLPs at:
+    \url{https://playground.tensorflow.org}
+\end{note}
+
+\begin{note}
+    You are responsible for understanding how the following parameters affect scikit learn's
+
+    \noindent
+    \lstinline{sklearn.neural_network.MLPClassifier}.
+    \begin{enumerate}
+        \item \lstinline{hidden_layer_size}
+        \item \lstinline{activation}
+        \item \lstinline{solver}
+        \item \lstinline{alpha}
+    \end{enumerate}
+\end{note}
+
+
+\newpage
+\begin{theorem}[universal approximation]
+    Let $g$ be the ERM hypothesis for the 1-layer MLP hypothesis class.
+    Then,
+    \begin{equation}
+        \lim_{d_1\to\infty} \Ein(g) = 0
+        .
+    \end{equation}
+\end{theorem}
+
+\begin{theorem}
+    %If $\sigma$ is the identity function, then the VC-dimension of the $k$-layer MLP is
+    %\begin{equation}
+        %\dvc = \min_{i\in[k]} d_i.
+    %\end{equation}
+    Define
+    \begin{align}
+        \label{eq:E}
+        E &= \prod_{i=1}^k d_i d_{i-1} = d'd \prod_{i=1}^{k-1} d_i^2.
+        \\
+        V &= \prod_{i=1}^k d_i
+    \end{align}
+    The VC-dimension of the $k$-layer MLP with the identity activation function is
+    \begin{equation}
+        \Theta(d)
+        .
+    \end{equation}
+    The VC-dimension of the $k$-layer MLP with the $\sigma=\sign$ activation function is
+    \begin{equation}
+        %\dvc = \tilde O\bigg(d'd \prod_{i=1}^{k-1} d_i^2 \bigg)
+        \dvc = O(E \log E)
+        .
+    \end{equation}
+    With the $\sigma=\tanh$ activation function, the tightest known bounds on the VC dimension are
+    \begin{align}
+        \dvc = \Omega(E^2) \quad\text{and}\quad
+        \dvc = O(V^2 E^2)
+        .
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    See Section 20.4 of \emph{Understanding Machine Learning: From Theory to Algorithms}.
+\end{proof}
+
+\begin{theorem}
+    Let $E$ be defined as in Equation \eqref{eq:E} above.
+    Then the VC dimension of neural networks with the ReLU (hinge loss) activation function is upper bounded by
+    \begin{equation}
+        \dvc = O(Ek\log(E))
+    \end{equation}
+    and lower bounded by
+    \begin{equation}
+        \dvc = \Omega(Ek\log(E/k)).
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    See ``Nearly-tight VC-dimension and pseudodimension bounds for piecewise linear neural networks'', COLT 2017.
+\end{proof}
+
+\begin{fact}
+    The optimization problem for neural networks is non-convex.
+    Optimization is therefore not guaranteed to lead to a global minimum.
+\end{fact}
+
+%\begin{fact}
+    %Unlike logistic regression, neural networks are non-convex.
+%\end{fact}
+
+\newpage
+\begin{problem}
+    You are training a \lstinline{sklearn.neural_network.MLPClassifier} model with the hyperparameter \lstinline{activation} set equal to \lstinline{relu} on 1000 dimensional data.
+    You have the choice of setting the \lstinline{hidden_layer_sizes} hyperparameter to either (a) \lstinline{[10,10,10]} or (b) \lstinline{[100]}.
+    \begin{enumerate}
+        \item Which choice is more likely to overfit the data?
+            \vspace{3in}
+        \item Which choice will likely require a larger value of \lstinline{alpha}?
+            \vspace{3in}
+    \end{enumerate}
+\end{problem}
+
+\newpage
+\begin{problem}
+    You have successfully trained a \lstinline{sklearn.neural_network.MLPClassifier} model with \lstinline{hidden_layer_sizes} equal to \lstinline{[100,100]} in order to predict whether a user will click on an advertisement.
+    The model is neither overfitting nor underfitting the data,
+    and so you have successfully tuned all the hyperparameters of this model into their optimal configuration.
+
+    Your colleagues in the marketing department have collected more data, however, and so are requesting a new model be trained that is more accurate.
+    The new dataset is twice the size of the old dataset.
+
+    \begin{enumerate}
+        \item Your colleagues suggest that since you have twice the amount of data, you could make the neural network twice as deep and use \lstinline{hidden_layer_sizes} equal to \lstinline{[100,100,100,100]}.
+            Does VC theory predict this will lead to good generalization?
+
+            \vspace{4in}
+        \item Different colleagues suggest that since you have twice the amount of data, you could make the neural network twice as wide and use \lstinline{hidden_layer_sizes} equal to \lstinline{[200,200]}.
+            Does VC theory predict this will lead to good generalization?
+    \end{enumerate}
+\end{problem}
+
+\end{document}
+
+
+
