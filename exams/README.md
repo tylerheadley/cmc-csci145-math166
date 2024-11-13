@@ -9,7 +9,7 @@ Common bad habits:
 1. bad "pronunciation"
     1. $\mathcal X$ is pronounced "script X" or "mathcal X" (used to represent a dataset)
 
-        $\chi$ is pronounced "Chi" (not used in this class)
+        $\chi$ is pronounced "chi"/"kai" (not used in this class)
 
 1. not technically correct language
     1. Incorrect: In sample error greater than generalization error means **most likely** overfitting.
