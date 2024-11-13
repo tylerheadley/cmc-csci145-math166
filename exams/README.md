@@ -1,6 +1,55 @@
 # Exams
 
-## Midterm 1: Pagerank
+## Midterm 2
+
+<img width=400px src=img/2024fall-midterm2.png />
+
+Common bad habits:
+
+1. bad "pronunciation"
+    1. $\mathcal X$ is pronounced "script X" or "mathcal X" (used to represent a dataset)
+
+        $\Chi$ is pronounced "Chi" (not used in this class)
+
+1. not technically correct language
+    1. Incorrect: In sample error greater than generalization error means **most likely** overfitting.
+
+        > **NOTE:**
+        > This is true by definition.
+        > So it is not "most likely" true or "reliably" true.
+        > It does not "tend to" be true.
+
+        Correct: A large VC dimension compared to the number of data points means we are **most likely** overfitting.
+
+    1. Incorrect: We are underfitting, so we should use a **better** hypothesis classs.
+
+        Correct: We are underfitting, so we should use a hypothesis class with a **higher VC dimension**.
+
+    1. Incorrect: $d_{VC} = \Theta(d), d=100 \implies d_{VC} = \Theta(100)$
+
+       Correct: $d_{VC} = \Theta(d), d=100 \implies d_{VC} \approx 100$
+
+    1. Incorrect: $d_{VC} = \Theta(d), d=100 \implies d_{VC} = \Theta(100)$
+
+       Correct: $d_{VC} = \Theta(d), d=100 \implies d_{VC} \approx 100$
+
+Common concepts people misunderstood:
+
+1. $N = d_{VC}$ is only a guideline, not a theorem
+
+    Only relationship between $E_{in}$ and generalization error determines whether you are over/underfitting.
+
+1. $d_{VC} \down$ not guarantee $E_{in} \down$;
+
+    Only the subset relationship guarantees a relation between in sample error.
+
+1. Hoeffding bound on $|E_{test} - E_{out}|$ does not depend on VC dimension
+
+    Only $|E_{in} - E_{out}|$ depends on VC dimension
+
+1. Universal approximation theorem states does not state that $d_{VC} \to \infty \implies E_{in} \to 0$.
+
+## Midterm 1
 
 <img width=400px src=img/2024fall-midterm1.png />
 
