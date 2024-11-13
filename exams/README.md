@@ -23,11 +23,10 @@ Common bad habits:
 
     1. Incorrect: We are underfitting, so we should use a **better** hypothesis classs.
 
+        > **NOTE:**
+        > The "no free lunch theorem" states that for every hypothesis class, there exists a data distribution that the hypothesis class cannot learn.
+
         Correct: We are underfitting, so we should use a hypothesis class with a **higher VC dimension**.
-
-    1. Incorrect: $d_{VC} = \Theta(d), d=100 \implies d_{VC} = \Theta(100)$
-
-       Correct: $d_{VC} = \Theta(d), d=100 \implies d_{VC} \approx 100$
 
     1. Incorrect: $d_{VC} = \Theta(d), d=100 \implies d_{VC} = \Theta(100)$
 
@@ -39,7 +38,7 @@ Common concepts people misunderstood:
 
     Only relationship between $E_{in}$ and generalization error determines whether you are over/underfitting.
 
-1. $d_{VC} \down$ not guarantee $E_{in} \down$;
+1. $d_{VC} \downarrow$ not guarantee $E_{in} \downarrow$;
 
     Only the subset relationship guarantees a relation between in sample error.
 
