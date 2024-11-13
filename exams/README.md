@@ -38,7 +38,7 @@ Common concepts people misunderstood:
 
     Only relationship between $E_{in}$ and generalization error determines whether you are over/underfitting.
 
-1. $d_{VC} \downarrow$ not guarantee $E_{in} \downarrow$;
+1. $d_{VC} \downarrow$ does not guarantee $E_{in} \downarrow$;
 
     Only the subset relationship guarantees a relation between in sample error.
 
@@ -47,6 +47,8 @@ Common concepts people misunderstood:
     Only $|E_{in} - E_{out}|$ depends on VC dimension
 
 1. Universal approximation theorem states does not state that $d_{VC} \to \infty \implies E_{in} \to 0$.
+
+    For example, convex sets had infinite VC dimension but not guaranteed to have 0 in sample error.
 
 ## Midterm 1
 
