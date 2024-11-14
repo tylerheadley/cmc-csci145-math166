@@ -34,11 +34,11 @@ Common bad habits:
 
 Common concepts people misunderstood:
 
-1. $N = d_{VC}$ is only a guideline, not a theorem
+1. $N = 10•d_{VC}$ is only a guideline, not a theorem
 
     Only relationship between $E_{in}$ and generalization error determines whether you are over/underfitting.
 
-1. $d_{VC} \downarrow$ does not guarantee $E_{in} \downarrow$;
+1. $d_{VC} \uparrow$ does not guarantee $E_{in} \downarrow$;
 
     Only the subset relationship guarantees a relation between in sample error.
 
