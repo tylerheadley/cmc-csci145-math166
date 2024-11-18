@@ -1,0 +1,261 @@
+\documentclass[10pt]{exam}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{stmaryrd}
+\usepackage{booktabs}
+
+\usepackage{color}
+\usepackage{colortbl}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{gray}{rgb}{0.7,0.7,0.7}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = black, %Colour for external hyperlinks
+  linkcolor    = blue, %Colour of internal links
+  citecolor    = blue  %Colour of citations
+}
+
+\usepackage{listings}
+\lstset{
+    basicstyle={\ttfamily}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{note}{Note}
+\newtheorem{defn}{Definition}
+\newtheorem{fact}{Fact}
+\newtheorem{refr}{References}
+\newtheorem{theorem}{Theorem}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\DeclareMathOperator{\nnz}{nnz}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\determinant}{det}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\prob}{\mathbb P}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\Ein}{E_{\text{in}}}
+\newcommand{\Eout}{E_{\text{out}}}
+\newcommand{\Etest}{E_{\text{test}}}
+\newcommand{\I}{\mathbf I}
+\newcommand{\Q}{\mathbf Q}
+\newcommand{\p}{\mathbf P}
+\newcommand{\pb}{\bar {\p}}
+\newcommand{\pbb}{\bar {\pb}}
+\newcommand{\pr}{\bm \pi}
+
+\newcommand{\trans}[1]{{#1}^{T}}
+\newcommand{\loss}{\ell}
+\newcommand{\w}{\mathbf w}
+\newcommand{\wstar}{{\w}^{*}}
+\newcommand{\x}{\mathbf x}
+\newcommand{\y}{\mathbf y}
+\newcommand{\lone}[1]{{\lVert {#1} \rVert}_1}
+\newcommand{\ltwo}[1]{{\lVert {#1} \rVert}_2}
+\newcommand{\lp}[1]{{\lVert {#1} \rVert}_p}
+\newcommand{\linf}[1]{{\lVert {#1} \rVert}_\infty}
+\newcommand{\lF}[1]{{\lVert {#1} \rVert}_F}
+
+\newcommand{\mH}{m_{\mathcal H}}
+\newcommand{\dvc}{{d_{\text{VC}}}}
+\newcommand{\HH}[1]{\mathcal H_{\text{#1}}}
+\newcommand{\Hbinary}{\HH_{\text{binary}}}
+\newcommand{\Haxis}{\HH_{\text{axis}}}
+\newcommand{\Hperceptron}{\HH_{\text{perceptron}}}
+
+
+\newcommand{\ignore}[1]{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\begin{center}
+{
+\Huge
+Model Zoo 2
+}
+\end{center}
+
+\section*{Decision Trees}
+
+Describe the decision tree as implemented in \lstinline{sklearn.tree.DecisionTreeClassifier}.
+
+\newpage
+%\begin{fact}
+    %Decision trees are commonly used in medical applications.
+    %It is easy for doctors to both interpret the resulting model,
+    %and to memorize the model and apply it manually in clinical situations.
+%\end{fact}
+
+\begin{theorem}[universal approximation]
+    Let $g$ be the ERM hypothesis for the class of binary decision trees with $k$ nodes.
+    Then,
+    \begin{equation}
+        \lim_{k\to\infty} \Ein(g) = 0
+        .
+    \end{equation}
+\end{theorem}
+
+\begin{theorem}
+    Let $k$ be the number of nodes in a binary decision tree.
+    Then the VC-dimension is bounded by
+    \begin{equation}
+        \dvc = O(k\log(kd)).
+        \label{eq:1}
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    See ``Decision trees as partitioning machines to characterize their generalization properties,'' NeurIPS 2020.
+\end{proof}
+\begin{corollary}
+    Let $j$ be the height of a binary decision tree.
+    Then the VC dimension is bounded by
+    \begin{equation}
+        \dvc = O(2^j j \log d).
+        \label{eq:2}
+    \end{equation}
+\end{corollary}
+\begin{proof}
+    The number of nodes $k=O(2^j)$.
+    Substituting into Equation \eqref{eq:1} gives Equation \eqref{eq:2}.
+\end{proof}
+
+\begin{note}
+    These results directly contradict the advice given in scikit-learn's ``Tips for Practical Use'':
+    
+    \url{https://scikit-learn.org/stable/modules/tree.html#tips-on-practical-use}.
+\end{note}
+
+
+%\begin{theorem}[informal]
+    %The universal approximation theorem for decision trees states that
+    %\begin{equation}
+        %\lim_{k\to\infty} \Ein(g) = 0.
+    %\end{equation}
+%\end{theorem}
+
+\newpage
+\begin{problem}
+    Describe how changes to the following hyperparameters to \lstinline{sklearn.tree.DecisionTreeClassifier} affect the VC dimension (increase, decrease, stays the same).
+    \begin{enumerate}
+        \item \lstinline{criterion}
+            \vspace{0.75in}
+        \item \lstinline{max_depth}
+            \vspace{0.75in}
+        \item \lstinline{max_features}
+            \vspace{0.75in}
+        \item \lstinline{max_leaf_nodes}
+            \vspace{0.75in}
+        \item \lstinline{min_samples_leaf}
+            \vspace{0.75in}
+        \item \lstinline{min_samples_split}
+            \vspace{0.75in}
+        \item \lstinline{random_state}
+            \vspace{0.75in}
+    \end{enumerate}
+\end{problem}
+
+\newpage
+%\begin{problem}
+    %You have a small dataset ($N=10^3$) with a large number of features ($d=10^6$).
+    %Would you rather use L2 normalized logistic regression for this problem or decision trees?
+    %Why?
+%\end{problem}
+
+\begin{problem}
+    If you double the height of a decision tree from 3 to 6, approximately how much more data do you need to achieve the same generalization error?
+\end{problem}
+
+\vspace{4in}
+%\newpage
+\begin{problem}
+    What is the VC dimension of a decision tree with $k$ nodes where the polynomial feature map of degree $p$ has been applied to the data?
+\end{problem}
+
+\newpage
+\section*{Ensemble Methods}
+
+The hypothesis class of ensemble methods is
+\begin{equation}
+    L(B,T) = \bigg\{ \x \mapsto \sign \bigg(\sum_{t=1}^T w_t h_t(\x)\bigg) : \w \in \R^T, h_t \in B \bigg\}
+\end{equation}
+where $B$ is a set of ``base'' hypothesis classes and $T\in\mathbb Z$ is the number of hypotheses from $B$ to combine.
+
+\newpage
+\begin{theorem}[universal approximation]
+    Let $g$ be the ERM hypothesis for $L(B,T)$.
+    Then
+    \begin{equation}
+        \lim_{T\to\infty} \Ein(g) = 0
+    \end{equation}
+    for any hypothesis class $B$ that is a weak learner.
+    A \emph{weak learner} is any hypothesis class capable of achieving better than random error for any dataset.
+    (All infinite hypothesis classes we've seen are examples of weak learners.)
+\end{theorem}
+
+\begin{lemma}
+    The VC-dimension of $L(B,T)$ is
+    \begin{equation}
+        \dvc(L(B,T)) = O(T \dvc(B) \log(T \dvc(B)))
+    \end{equation}
+\end{lemma}
+\begin{proof}
+See Chapter 10, Lemma 10.3 of \emph{Understanding Machine Learning: From Theory to Algorithms}.
+\end{proof}
+
+%\begin{problem}
+%\end{problem}
+
+\begin{fact}
+There are two main categories of ensemble algorithms:
+    \begin{enumerate}
+        \item boosting
+            (e.g. \lstinline{AdaBoostClassifier}, \lstinline{GradientBoostingClassifier}, \lstinline{XGBoost}, \lstinline{LightGBM}), and
+            \vspace{3in}
+        \item bagging
+            (e.g. \lstinline{BaggingClassifier}, \lstinline{RandomForestClassifier}).
+    \end{enumerate}
+\end{fact}
+
+\newpage
+\begin{problem}
+    %A \emph{decision forest} is an ensemble of decision trees, and is one of the most commonly used 
+    Decision trees are some of the most commonly ``boosted'' models.
+    \begin{enumerate}
+        \item
+        Provide a tight upper bound on the VC dimension for an ensemble of decision trees.
+            \vspace{3in}
+        \item
+            If you increase the number of decision trees $T$ in the ensemble, 
+            then how should you adjust the number of nodes $k$ in the decision trees?
+            \vspace{2.5in}
+        \item
+            If you increase the number of nodes $k$ in the base decision trees,
+            then how should you adjust the number of decision trees in the ensemble $T$?
+    \end{enumerate}
+\end{problem}
+
+\end{document}
+
+
+
