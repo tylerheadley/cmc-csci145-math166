@@ -9,3 +9,11 @@
 - Transfer learning homework due Sunday Dec 1.
 
 - Maybe no more homework?
+
+**Wed 20 Nov:**
+
+- Recent recordings missing sound :(
+
+- Sorry about cancelled office hours.
+
+  I will have an additional office hours/final review session last week of class.
