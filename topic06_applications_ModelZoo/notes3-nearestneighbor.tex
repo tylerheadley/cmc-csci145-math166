@@ -1,0 +1,253 @@
+\documentclass[10pt]{exam}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{stmaryrd}
+\usepackage{booktabs}
+
+\usepackage{color}
+\usepackage{colortbl}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{gray}{rgb}{0.7,0.7,0.7}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = black, %Colour for external hyperlinks
+  linkcolor    = blue, %Colour of internal links
+  citecolor    = blue  %Colour of citations
+}
+
+\usepackage{listings}
+\lstset{
+    basicstyle={\ttfamily}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{note}{Note}
+\newtheorem{defn}{Definition}
+\newtheorem{fact}{Fact}
+\newtheorem{refr}{References}
+\newtheorem{theorem}{Theorem}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\DeclareMathOperator{\nnz}{nnz}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\determinant}{det}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\prob}{\mathbb P}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\Ein}{E_{\text{in}}}
+\newcommand{\Eout}{E_{\text{out}}}
+\newcommand{\Etest}{E_{\text{test}}}
+\newcommand{\I}{\mathbf I}
+\newcommand{\Q}{\mathbf Q}
+\newcommand{\p}{\mathbf P}
+\newcommand{\pb}{\bar {\p}}
+\newcommand{\pbb}{\bar {\pb}}
+\newcommand{\pr}{\bm \pi}
+
+\newcommand{\trans}[1]{{#1}^{T}}
+\newcommand{\loss}{\ell}
+\newcommand{\w}{\mathbf w}
+\newcommand{\wstar}{{\w}^{*}}
+\newcommand{\x}{\mathbf x}
+\newcommand{\y}{\mathbf y}
+\newcommand{\lone}[1]{{\lVert {#1} \rVert}_1}
+\newcommand{\ltwo}[1]{{\lVert {#1} \rVert}_2}
+\newcommand{\lp}[1]{{\lVert {#1} \rVert}_p}
+\newcommand{\linf}[1]{{\lVert {#1} \rVert}_\infty}
+\newcommand{\lF}[1]{{\lVert {#1} \rVert}_F}
+
+\newcommand{\mH}{m_{\mathcal H}}
+\newcommand{\dvc}{{d_{\text{VC}}}}
+\newcommand{\HH}[1]{\mathcal H_{\text{#1}}}
+\newcommand{\Hbinary}{\HH_{\text{binary}}}
+\newcommand{\Haxis}{\HH_{\text{axis}}}
+\newcommand{\Hperceptron}{\HH_{\text{perceptron}}}
+
+
+\newcommand{\ignore}[1]{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\begin{center}
+{
+\Huge
+Model Zoo 3
+}
+\end{center}
+
+\noindent
+The textbook has detailed explanations of all of the models we've covered in the model zoo in the online supplements located at
+
+\vspace{0.15in}
+\url{https://amlbook.com/eChapters.html}
+
+\vspace{0.15in}
+\noindent
+The online supplements are all password protected with password \lstinline{Paraskavedekatriaphobia}.
+For the most part, these online supplements are technical and provide relatively little insight into practical applications.
+The section on nearest neighbor algorithms (e-Chapter 6), however, is relatively readable.
+
+\section*{Nearest Neighbor Methods}
+
+\begin{problem}
+Describe the $k$-nearest neighbor classifier.
+\end{problem}
+
+%\begin{theorem}
+    %We have a known lower bound on the fastest $\Omega(2^d \log N)$.
+%\end{theorem}
+
+\newpage
+\begin{fact}
+    The in sample error of 1-nearest neighbor is always 0.
+\end{fact}
+
+%\begin{fact}
+    %The VC-dimension of $k$-nearest neighbor methods is infinite.
+%\end{fact}
+
+\vspace{2in}
+\begin{theorem}[informal]
+    Let $h$ be the 1-NN hypothesis.
+    Then for ``well behaved'' data distributions,
+    we have with high probability that
+    \begin{equation}
+        \Eout(h) \le 2 \Eout(f) + 4 \sqrt{d}N^{-\frac{1}{d+1}}.
+    \end{equation}
+    If $h$ is the $k$-nearest neighbor classifier,
+    then with high probability,
+    \begin{equation}
+        \Eout(h) \ge (1 + 1/k) \Eout(f)
+        .
+    \end{equation}
+\end{theorem}
+\begin{proof}
+See Theorem 19.3 of \emph{Understanding Machine Learning: From Theory to Algorithms}.
+\end{proof}
+
+\newpage
+\begin{problem}
+    Recall that the ImageNet dataset has an estimated Bayes Error around 5\%.
+    (This estimate follows from Karpathy's observed human error rate of 5\% and the observed labelled errors from the automatic collection process.)
+    What is the best out of sample error we can expect from a 1-NN classifier?
+\end{problem}
+
+\vspace{3in}
+\begin{problem}
+    Recall that the MNIST digit classification dataset has $N=60000$ training image, and each image has $d=28\times28=784$ dimensions.
+    There are 13 known mislabeled images.
+    (You can see them at \url{https://labelerrors.com/}.)
+    \begin{enumerate}
+        \item Why 1-NN is a bad choice of algorithm for this dataset?
+        \vspace{2in}
+        \item Would it make more sense to use PCA or the polynomial feature map on this dataset before performing 1-NN?
+    \end{enumerate}
+\end{problem}
+
+%\newpage
+%\begin{note}
+%You are responsible for understanding how the following hyperparameters affect
+%
+    %\noindent\lstinline{sklearn.neighbors.KNeighborsClassifier}.
+    %\begin{enumerate}
+        %\item \lstinline{n_neighbors}
+        %\item \lstinline{weights}
+        %\item \lstinline{algorithm}
+        %\item \lstinline{metric}
+    %\end{enumerate}
+%\end{note}
+%\begin{problem}
+    %You have a dataset of size $N=10^5$ with $d=4$ dimensions.
+%\end{problem}
+
+\newpage
+\section*{Support Vector Machines (SVMs)}
+
+There are three standard and equivalent interpretations of SVMs:
+\begin{enumerate}
+\item The hypothesis class $\HH{perceptron}$ with the hinge loss $\loss(\x;\w) = \max(1-\trans\w\x, 0)$.
+\item The large margin classifier.
+\item A smooth generalization of the k-nearest neighbor algorithm.
+\end{enumerate}
+
+\newpage
+\begin{note}
+The following theorem is copied directly from Theorem 8.5 in Chapter 8 of the \emph{Learning from Data} textbook.
+Most of this chapter is more technical than needed for this course,
+but the explanation of the theorem is straightforward and worth reading.
+\end{note}
+\begin{theorem}
+    Suppose the input space is the ball of radius $R$ in $\R^d$.
+    That is, $\ltwo{\x} \le R$.
+    Then,
+    \begin{equation}
+        \dvc \le \lceil R^2/\rho^2\rceil + 1.
+    \end{equation}
+\end{theorem}
+
+\newpage
+\begin{problem}
+    Describe the \emph{dual learning problem} and the \emph{kernel trick}.
+\end{problem}
+%\section{Non-binary Classification}
+
+
+\newpage
+%\begin{problem}
+    %Describe how changes to the following hyperparameters of \lstinline{sklearn.svm.SVC} affect model performance.
+    %\begin{enumerate}
+        %\item \lstinline{C}
+        %\item \lstinline{kernel}
+        %\item \lstinline{degree}
+        %\item \lstinline{gamma}
+        %\item \lstinline{coef0}
+        %\item \lstinline{tol}
+        %\item \lstinline{cache_size}
+        %\item \lstinline{max_iter}
+    %\end{enumerate}
+%\end{problem}
+
+\noindent
+Common sample kernel functions include:
+
+\vspace{0.15in}
+{
+\setlength{\tabcolsep}{35pt}
+\renewcommand{\arraystretch}{3.5}
+\begin{tabular}{lcc}
+    \hline
+    kernel name & $K(\x_1, \x_2)$ & feature dimensions $(\tilde d)$ \\
+    \hline
+    linear & $\trans\x_1 \x_2$ & $d$ \\
+    polynomial & $(\gamma\trans\x_1\x_2 + r)^Q$ & $\Theta(d^Q)$ \\
+    gaussian & $\exp(-\gamma\ltwo{\x_1-\x_2}^2)$ & $\infty$ \\
+    sigmoid & $\tanh(\gamma\trans\x_1\x_2 + r)$ & $\infty$ \\
+    \hline
+\end{tabular}
+}
+
+\end{document}
+
+
+
