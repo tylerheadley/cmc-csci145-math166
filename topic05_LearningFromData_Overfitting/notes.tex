@@ -189,23 +189,28 @@ Define the \emph{augmented error} to be
 \newpage
 \vspace{0.2in}
 \begin{fact}
-    Consider the hypothesis class of $k$-sparse halfspaces
+    The hypothesis class of $k$-sparse halfspaces is defined to be
     \begin{equation}
         \mathcal{H}_k = \bigg\{ \x \mapsto \sign(\trans\w\x) ~:~ \w\in\R^d,~\nnz(\w)=k \bigg\}
         .
     \end{equation}
     The VC-dimension of $\mathcal{H}_k$ is $\Theta(k\log (d))$.
-    This hypothesis class cannot be optimized directly using any of the gradient descent algorithms because it is non-convex.
 \end{fact}
-\vspace{3in}
+
+\newpage
 \noindent
+
+\begin{note}
+    The following table summarizes all the results of this section,
+    and it will be needed for solving real world problems.
+\end{note}
 \renewcommand\arraystretch{5}
 \hspace{-0.5in}
 \begin{tabular}{lC{0.75in}C{0.75in}C{0.75in}C{0.75in}C{0.75in}C{0.75in}C{0.75in}}
     \toprule
      & \multicolumn{7}{c}{Effect of $\lambda\uparrow$ or $C\downarrow$} \\
      \cmidrule{2-8}
-    Regularizer & $\Ein$ & $|\Eout-\Ein|$ & $\Eout$ & VCdim & $\nnz(\w)$ & time/iter & num iter \\
+    Regularizer & $\Ein$ & $|\Eout-\Ein|$ & $\Eout$ & $\nnz(\w)$ & VCdim & time/iter & num iter \\
     \midrule
     L1 \\
     L2 \\

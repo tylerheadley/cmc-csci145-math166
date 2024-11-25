@@ -101,12 +101,17 @@ Chapter 4.3: Validation / Model Selection
 %We paused our discussion about Chapter 4 (Overfitting) of the textbook in order to talk about more types of models (Model Zoo/Transfer Learning).
 %We now revisit Chapter 4
 
+\noindent
 Model selection is the processes of selecting the best hyperparameters for a learning problem.
 It is the most important step in real-world data mining tasks.
+We've partially discussed model selection in preparation for midterm 2.
+There are some subtle ``gotchas'' about model selection,
+however, that this section of the textbook addresses.
 
 One of the weaknesses of our textbook is that it does not discuss in detail very many models to select hyper-parameters for.
+(Or alternatively the eChapters go into too much detail.)
 So in order to have more interesting models to work with,
-we spent the last few lectures covering the ``Model Zoo'' and ``Transfer Learning'' topics.
+we spent the last few lectures covering the ``Model Zoo'' topics.
 Now we return to Chapter 4.3 of the textbook.
 Previously we discussed Chapters 4.1-4.2 of the textbook on how regularization relates to overfitting.
 
@@ -121,6 +126,7 @@ The motivating equation of Chapter 4 is
 
 \vspace{2in}
 
+\ignore{
 \begin{defn}
 Optimization with a \emph{soft order constraint} is defined to be
 \begin{equation}
@@ -154,6 +160,7 @@ Define the \emph{augmented error} to be
     then $\Eaug \approx \Eout$,
     and $g\approx f$.
 \end{fact}
+}
 
 \newpage
 \section*{Section 4.3.1: The Validation Set}
@@ -180,7 +187,7 @@ Equation 4.10 of the textbook states
     .
 \end{equation*}
 
-\vspace{3in}
+\vspace{2.5in}
 Describe the difference between a test set and validation set.
 
 \newpage
