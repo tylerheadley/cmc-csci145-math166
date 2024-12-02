@@ -14,6 +14,8 @@
     1. You will describe a plan to improve performance using that same model
 
 1. Expect follow up questions about all models
+    1. You should know the effect of all hyperparameters on runtime and statistical error
+    1. You should know typical ranges for all hyperparameters
 
 1. Expect review questions from the second midterm
 

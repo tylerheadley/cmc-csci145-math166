@@ -170,6 +170,15 @@ model = sklearn.ensemble.AdaBoostClassifier(
     estimator=model,
     n_estimators=50,
     )
+model = sklearn.ensemble.RandomForestClassifier(
+    n_estimators=100,
+    criterion='gini',
+    max_depth=None,
+    min_samples_split=2,
+    min_samples_leaf=1,
+    min_weight_fraction_leaf=0.0,
+    max_features='sqrt',
+    )
 model = sklearn.neighbors.KNeighborsClassifier(
     n_neighbors=3,
     weights='uniform',
