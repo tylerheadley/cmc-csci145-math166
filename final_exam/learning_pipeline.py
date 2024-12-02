@@ -29,7 +29,7 @@ import sklearn.svm
 data = sklearn.datasets.fetch_openml(name='GermanCreditData')
 df = data.data
 target = data.target
-print(f"df.shape={df.shape}")
+print(f"df.shape={df.shape}")           # d = dimensions ; N = number of datapoints
 print(f"target.shape={target.shape}")
 
 ########################################
@@ -94,12 +94,14 @@ print(f"len(x_val)={len(x_val)}")
 # STEP 4: Apply "learned" data transformations
 ########################################
 
+# Any transformation from STEP 2 could also appear here.
+
 # standardize the data
 standardize = sklearn.preprocessing.StandardScaler(
     with_mean=True,
     with_std=True,
     )
-standardize.fit(x_train)
+standardize.fit(x_train) # all of these feature transformations have; => "learned"
 x_train0 = standardize.transform(x_train0)
 x_train = standardize.transform(x_train)
 x_test = standardize.transform(x_test)
@@ -216,6 +218,9 @@ model = sklearn.svm.SVC(
     random_state=42,
     )
 model.fit(x_train, y_train)
+
+# most of our discussions in class about "error"
+# accuracy is just 1 - error
 
 # report validation accuracy
 validation_accuracy = model.score(x_val, y_val)
