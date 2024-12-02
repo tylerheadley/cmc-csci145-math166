@@ -34,6 +34,14 @@
        If you did poorly on the first midterm,
        expect me to ask lots of questions about the runtime of gradient descent / stochastic gradient descent / perceptron
 
+**My availability:**
+
+1. Standard office hours Tuesday 9-11am.
+
+    Friday 9-11am is capstone presentations, so I'm not available.
+
+1. Dedicated final review sessions Thursday 9-11am and Friday 1-3pm.
+
 ## Extra Credit Homework
 
 You may get up to 4 points of extra credit for finding good hyperparameters for the GermanCreditData.
