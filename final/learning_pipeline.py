@@ -1,24 +1,40 @@
-# import needed libraries
-import numpy as np
+########################################
+# STEP 0: import libraries
+########################################
 import pandas as pd
 import sklearn.datasets
 import sklearn.decomposition
+import sklearn.discriminant_analysis
 import sklearn.ensemble
 import sklearn.linear_model
 import sklearn.neural_network
 import sklearn.model_selection
+import sklearn.naive_bayes
 import sklearn.neighbors
 import sklearn.preprocessing
 import sklearn.random_projection
 import sklearn.tree
 import sklearn.svm
 
-# load the dataset
+########################################
+# STEP 1: Load the dataset
+########################################
+
+# NOTE:
+# This code is problem specific.
+# All the other code in this file is generic to work with any dataset.
+# The "German Credit" dataset is a famous dataset for predicting whether someone will default on a loan.
+# It has been used in previous practicum projects for banks.
+# It is a publicly accessible dataset that is similar in format/content to their private datasets.
 data = sklearn.datasets.fetch_openml(name='GermanCreditData')
 df = data.data
 target = data.target
 print(f"df.shape={df.shape}")
 print(f"target.shape={target.shape}")
+
+########################################
+# STEP 2: Apply "non-learned" data transformations
+########################################
 
 # one hot encode categorical columns
 df = pd.get_dummies(df)
@@ -29,47 +45,62 @@ le = sklearn.preprocessing.LabelEncoder()
 df = df[df.columns[:]].apply(le.fit_transform)
 print(f"df.shape={df.shape}")
 
-# apply the polynomial kernel
-poly = sklearn.preprocessing.PolynomialFeatures(2)
+# apply the polynomial feature map
+poly = sklearn.preprocessing.PolynomialFeatures(3)
 df = poly.fit_transform(df)
 print(f"df.shape={df.shape}")
 
 # apply a random projection
-rng = np.random.RandomState(42)
-proj = sklearn.random_projection.GaussianRandomProjection(n_components=120, random_state=rng)
+proj = sklearn.random_projection.GaussianRandomProjection(
+    n_components=120,
+    random_state=42,
+    )
 df = proj.fit_transform(df)
 print(f"df.shape={df.shape}")
 
-# create train/validation/test sets
+########################################
+# STEP 3: Create train/test sets
+########################################
+
 train_ratio = 0.75
 validation_ratio = 0.15
 test_ratio = 0.10
 
+# ensure that the ratios sum to 1.0
+epsilon = 1e-10
+assert(1 - epsilon <= train_ratio + validation_ratio + test_ratio <= 1 + epsilon)
+
+# create train0/test set
 x_train0, x_test, y_train0, y_test = sklearn.model_selection.train_test_split(
     df,
     target,
     test_size=test_ratio,
     random_state=0,
     )
+print(f"len(x_train0)={len(x_train0)}")
+print(f"len(x_test)={len(x_test)}")
 
+# create train/validation set
 x_train, x_val, y_train, y_val = sklearn.model_selection.train_test_split(
     x_train0,
     y_train0,
     test_size=validation_ratio/(train_ratio + validation_ratio),
     random_state=0,
     )
-
-print(f"len(x_train0)={len(x_train0)}")
 print(f"len(x_train)={len(x_train)}")
 print(f"len(x_val)={len(x_val)}")
-print(f"len(x_test)={len(x_test)}")
+
+########################################
+# STEP 4: Apply "learned" data transformations
+########################################
 
 # scale the data
-scaler = sklearn.preprocessing.StandardScaler().fit(x_train0)
+scaler = sklearn.preprocessing.StandardScaler()
+scaler.fit(x_train)
 x_train0 = scaler.transform(x_train0)
 x_train = scaler.transform(x_train)
-x_val = scaler.transform(x_val)
 x_test = scaler.transform(x_test)
+x_val = scaler.transform(x_val)
 print(f"x_train0.shape={x_train0.shape}")
 
 # PCA the data
@@ -77,11 +108,21 @@ pca = sklearn.decomposition.PCA(n_components=10)
 pca.fit(x_train0)
 x_train0 = pca.transform(x_train0)
 x_train = pca.transform(x_train)
-x_val = pca.transform(x_val)
 x_test = pca.transform(x_test)
+x_val = pca.transform(x_val)
 print(f"x_train0.shape={x_train0.shape}")
 
-# train a model
+########################################
+# STEP 5: Train a model
+########################################
+
+# NOTE:
+# the models below are listed in the order we covered them in class;
+# the parameters are listed in the order of the documentation;
+# you are responsible for understanding how all specified parameters impact the runtime and/or statistical errors
+model = sklearn.linear_model.Perceptron(
+    max_iter=1000,
+    )
 model = sklearn.linear_model.LogisticRegression(
     C=1e1,
     penalty='l2',
@@ -105,6 +146,9 @@ model = sklearn.linear_model.SGDClassifier(
     verbose=1,
     random_state=42,
     )
+model = sklearn.naive_bayes.GaussianNB()
+model = sklearn.discriminant_analysis.LinearDiscriminantAnalysis()
+model = sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis()
 model = sklearn.neural_network.MLPClassifier(
     hidden_layer_sizes=[10, 10],
     activation='relu',
@@ -137,7 +181,7 @@ model = sklearn.svm.SVC(
     degree=3,
     gamma='scale',
     tol=1e-3,
-    max_iter=200,
+    max_iter=2000,
     cache_size=200,
     random_state=42,
     )
@@ -145,14 +189,19 @@ model.fit(x_train, y_train)
 
 # report validation accuracy
 validation_accuracy = model.score(x_val, y_val)
-print(f"validation_accuracy={validation_accuracy}")
+print(f"validation_accuracy={validation_accuracy:0.4f}")
+train_accuracy = model.score(x_train, y_train)
+print(f"train_accuracy={train_accuracy:0.4f}")
 
-# report test accuracy
+########################################
+# STEP 6: Evaluate on test set
+########################################
+
+# WARNING:
+# this code should be run only once;
+# after the hyperparameters have been decided based on the validation performance,
+# then the False can be changed to True to run this code
 if False:
-    # WARNING:
-    # this code should be run only once;
-    # after the hyperparameters have been decided based on the validation performance,
-    # then the False can be changed to True to run this code
     model.fit(x_train0, y_train0)
     test_accuracy = model.score(x_test, y_test)
     print(f"test_accuracy={test_accuracy}")
