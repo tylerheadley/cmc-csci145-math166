@@ -94,8 +94,20 @@ print(f"len(x_val)={len(x_val)}")
 # STEP 4: Apply "learned" data transformations
 ########################################
 
-# scale the data
-scaler = sklearn.preprocessing.StandardScaler()
+# standardize the data
+standardize = sklearn.preprocessing.StandardScaler(
+    with_mean=True,
+    with_std=True,
+    )
+standardize.fit(x_train)
+x_train0 = standardize.transform(x_train0)
+x_train = standardize.transform(x_train)
+x_test = standardize.transform(x_test)
+x_val = standardize.transform(x_val)
+print(f"x_train0.shape={x_train0.shape}")
+
+# scale the data to a finite range
+scaler = sklearn.preprocessing.MaxAbsScaler()
 scaler.fit(x_train)
 x_train0 = scaler.transform(x_train0)
 x_train = scaler.transform(x_train)
@@ -110,6 +122,15 @@ x_train0 = pca.transform(x_train0)
 x_train = pca.transform(x_train)
 x_test = pca.transform(x_test)
 x_val = pca.transform(x_val)
+print(f"x_train0.shape={x_train0.shape}")
+
+# normalize the data
+normalize = sklearn.preprocessing.Normalizer(norm='l1')
+normalize.fit(x_train)
+x_train0 = normalize.transform(x_train0)
+x_train = normalize.transform(x_train)
+x_test = normalize.transform(x_test)
+x_val = normalize.transform(x_val)
 print(f"x_train0.shape={x_train0.shape}")
 
 ########################################

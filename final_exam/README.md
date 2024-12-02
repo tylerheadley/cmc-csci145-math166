@@ -2,11 +2,13 @@
 
 1. Your final exam will be worth 128 points.
 
-    156 points total in the class => almost 50% of grade.
+    156 points currently in the class => final almost 50% of grade.
 
-1. For the initial problem:
-    1. I will give you a modified copy of `learning_pipeline.py`
+1. The exam will be based around the `learning_pipeline.py` file.
+    1. At the start of the exam, I will give you a modified copy
         1. Certain sections from STEP 2, 4, or 5 may be removed (e.g. "convert non-numeric columns to numeric" or "PCA the data")
+        1. Sections from Step 2 may be moved to step 4,
+            and the order of feature maps may be changed
         1. There will be only one model defined
         1. Any hard-coded constants might be changed
         1. The files `example*.py` provide examples
