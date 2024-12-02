@@ -47,10 +47,10 @@
 You may get up to 4 points of extra credit for finding good hyperparameters for the GermanCreditData.
 
 In particular, if you train a model that has validation accuracy of:
-1. 0.74, you will get 1 point
-1. 0.75, you will get 2 points
-1. 0.76, you will get 3 points
-1. >=0.77, you will get 4 points
+1. $>=0.74$, you will get 1 point
+1. $>=0.75$, you will get 1 more point
+1. $>=0.76$, you will get 1 more point
+1. $>=0.77$, you will get 1 more point
 
 You may not modify any code in STEP 0, 1 or 3.
 
