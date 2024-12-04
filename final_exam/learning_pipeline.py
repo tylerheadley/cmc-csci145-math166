@@ -208,7 +208,7 @@ model = sklearn.neighbors.KNeighborsClassifier(
     algorithm='ball_tree',
     )
 model = sklearn.svm.SVC(
-    C=1e-3,
+    C=1e-4,
     kernel='rbf',
     degree=3,
     gamma='scale',

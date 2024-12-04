@@ -91,18 +91,8 @@ print(f"x_train0.shape={x_train0.shape}")
 # STEP 5: Train a model
 ########################################
 
-model = sklearn.tree.DecisionTreeClassifier(
-    criterion='gini',
-    max_depth=4,
-    min_samples_split=2,
-    min_samples_leaf=10,
-    max_features=None,
-    max_leaf_nodes=25,
-    random_state=42,
-    )
-model = sklearn.ensemble.AdaBoostClassifier(
-    estimator=model,
-    n_estimators=50,
+model = sklearn.linear_model.Perceptron(
+    max_iter=1000,
     )
 model.fit(x_train, y_train)
 
